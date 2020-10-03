@@ -12,14 +12,4 @@ class IndexController extends Controller
     {
         return view('admin.index');
     }
-
-    public function publish()
-    {
-        return view('admin.publish')->with('categories', Category::getCategories());
-    }
-
-    public function test2()
-    {
-        return view('admin.test2');
-    }
 }
