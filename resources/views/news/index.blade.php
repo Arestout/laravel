@@ -15,9 +15,10 @@
             </div>
             <div class="card-body">
     @forelse($news as $item)
-        <h2>{{ $item['title'] }}</h2>
-        @if (!$item['isPrivate'])
-            <a href="{{ route('news.one', $item['id']) }}">Подробнее...</a><br>
+        <h2>{{ $item->title }}</h2>
+        <div class="card-img" style="background-image: url({{$item->image ?? asset('storage/default.jpg')}})"></div>
+        @if (!$item->isPrivate)
+            <a href="{{ route('news.one', $item->id) }}">Подробнее...</a><br>
         @endif
         <hr>
     @empty

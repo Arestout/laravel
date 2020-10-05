@@ -5,6 +5,7 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
@@ -54,6 +55,16 @@
             </div>
         </nav>
         <div class="container">
+            <div class="col-md-12 mt-4">
+                @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
+            </div>
             <main class="py-4">
                 @yield('content')
             </main>

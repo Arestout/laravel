@@ -16,3 +16,12 @@ class NewsTest extends TestCase
         $this->assertTrue(true);
     }
 }
+
+// public function testGetNewsByCategoryIdTest()
+//     {
+//         $news = News::getNewsByCategoryId(1);
+
+//         foreach ($news as $news) {
+//             $this->assertEquals($news['category_id'], 1);
+//         }
+//     }

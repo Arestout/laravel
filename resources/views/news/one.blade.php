@@ -10,13 +10,14 @@
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card">
+        <div class="card-img" style="background-image: url({{$news->image ?? asset('storage/default.jpg')}})"></div>
     @if ($news)
-        @if (!$news['isPrivate'])
+        @if (!$news->isPrivate)
         <div class="card-header">
-            <h1>{{ $news['title'] }}</h1>
+            <h1>{{ $news->title }}</h1>
         </div>
         <div class="card-body">
-            <p>{{ $news['text'] }}</p>
+            <p>{{ $news->text }}</p>
         </div>
         @else
             Зарегистрируйтесь для просмотра
