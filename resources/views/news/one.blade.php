@@ -7,10 +7,17 @@
 @endsection
 
 @section('content')
+<div class="row justify-content-center">
+    <div class="col-md-12">
+        <div class="card">
     @if ($news)
         @if (!$news['isPrivate'])
-            <h2>{{ $news['title'] }}</h2>
+        <div class="card-header">
+            <h1>{{ $news['title'] }}</h1>
+        </div>
+        <div class="card-body">
             <p>{{ $news['text'] }}</p>
+        </div>
         @else
             Зарегистрируйтесь для просмотра
         @endif
@@ -18,7 +25,6 @@
         Нет новости с таким id
     @endif
 @endsection
-
-
-
-
+        </div>
+    </div>
+</div>

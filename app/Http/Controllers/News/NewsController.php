@@ -11,7 +11,7 @@ class NewsController extends Controller
 {
     public function index()
     {
-        return view('news.index')->with('news', News::getNews());
+        return view('news.index')->with('news', News::getNewsFromFile());
     }
 
     public function showNewsById($id)

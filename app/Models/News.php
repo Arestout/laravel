@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
-
 class News
 {
     private static $news = [
@@ -25,6 +23,14 @@ class News
         ]
     ];
 
+    public static function getNewsFromFile()
+    {
+        $newsJson = \File::get(storage_path() . '/news.json');
+        $news = json_decode($newsJson, true);
+
+        return $news;
+    }
+
     public static function getNews()
     {
         return static::$news;
@@ -32,8 +38,10 @@ class News
 
     public static function getNewsId($id)
     {
-        if (isset(static::$news[$id])) {
-            $news = static::$news[$id];
+        // \File::put(storage_path() . '/news.json', json_encode(static::$news, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        $news = static::getNewsFromFile();
+        if (isset($news[$id])) {
+            $news = $news[$id];
             return $news;
         }
         return [];
@@ -42,8 +50,10 @@ class News
     public static function getNewsByCategorySlug($slug)
     {
         $id = Category::getCategoryIdBySlug($slug);
+        $newsFromFile = static::getNewsFromFile();
         $news = [];
-        foreach (static::$news as $item) {
+
+        foreach ($newsFromFile as $item) {
             if ($item['category_id'] == $id) {
                 $news[] = $item;
             }
@@ -53,9 +63,10 @@ class News
 
     public static function getNewsByCategoryId($id)
     {
+        $newsFromFile = static::getNewsFromFile();
         $categoryNews = [];
 
-        foreach (static::$news as $news) {
+        foreach ($newsFromFile as $news) {
             if ($news['category_id'] == $id) {
                 array_push($categoryNews, $news);
             }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\NewsAdminController;
 use App\Http\Controllers\News\NewsController;
 use App\Http\Controllers\News\CategoryController;
 
@@ -25,8 +26,8 @@ Route::name('admin.')
     ->group(
         function () {
             Route::get('/', [IndexController::class, 'index'])->name('index');
-            Route::get('/publish', [IndexController::class, 'publish'])->name('publish');
-            Route::get('/test2', [IndexController::class, 'test2'])->name('test2');
+            Route::match(['get', 'post'], '/publish', [NewsAdminController::class, 'publish'])->name('publish');
+            Route::match(['get', 'post'], '/download', [NewsAdminController::class, 'download'])->name('download');
         }
     );
 
