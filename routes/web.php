@@ -25,9 +25,12 @@ Route::name('admin.')
     ->prefix('admin')
     ->group(
         function () {
-            Route::get('/', [IndexController::class, 'index'])->name('index');
+            Route::get('/', [NewsAdminController::class, 'index'])->name('index');
             Route::match(['get', 'post'], '/publish', [NewsAdminController::class, 'publish'])->name('publish');
             Route::match(['get', 'post'], '/download', [NewsAdminController::class, 'download'])->name('download');
+            Route::get('/edit/{news}', [NewsAdminController::class, 'edit'])->name('edit');
+            Route::post('/update/{news}', [NewsAdminController::class, 'update'])->name('update');
+            Route::get('/destroy/{news}', [NewsAdminController::class, 'destroy'])->name('destroy');
         }
     );
 
@@ -38,7 +41,7 @@ Route::name('news.')
             Route::get('/', [NewsController::class, 'index'])->name('index');
             Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
             Route::get('/category/{category}', [CategoryController::class, 'show'])->name('category.show');
-            Route::get('/one/{id}', [NewsController::class, 'showNewsById'])->name('one');
+            Route::get('/one/{news}', [NewsController::class, 'showNewsById'])->name('one');
         }
     );
 

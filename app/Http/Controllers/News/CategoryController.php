@@ -11,15 +11,18 @@ class CategoryController extends Controller
 {
     public function index()
     {
-
-        return view('news.categories')->with('categories', Category::getCategories());
+        return view('news.categories')->with('categories', Category::all());
     }
 
     public function show($slug)
     {
+        $category = Category::query()->where('slug', $slug)->first();
+        $news = News::query()->where('category_id', $category->id)->paginate(5);
+
+        // $category->news->get();
         return view('news.category', [
-            'news' => News::getNewsByCategorySlug($slug),
-            'category' => Category::getCategoryBySlug($slug)
+            'news' => $news,
+            'category' => $category
         ]);
     }
 }
