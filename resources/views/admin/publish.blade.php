@@ -14,7 +14,7 @@
                 <h2>Добавить новость</h2>
             </div>
             <div class="col-md-8">
-                <form method="post" action="{{ route('admin.publish')}}">
+                <form method="post" action="{{ route('admin.publish')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="title">Заголовок</label>
@@ -34,6 +34,11 @@
                         <label for="text">Текст</label>
                         <textarea class="form-control" name="text" id="text" rows="3">{{ old('text')}}</textarea>
                     </div>
+
+                    <div class="form-group">
+                        <input type="file" name="image">
+                    </div>
+
                     <div class="form-group">
                         <input @if (old('isPrivate')) checked @endif type="checkbox" name="isPrivate" id="isPrivate" value="1">
                         <label for="isPrivate">Приватная</label>

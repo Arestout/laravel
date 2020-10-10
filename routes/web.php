@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\IndexController;
-use App\Http\Controllers\Admin\NewsAdminController;
+use App\Http\Controllers\Admin\NewsController as NewsAdminController;
 use App\Http\Controllers\News\NewsController;
 use App\Http\Controllers\News\CategoryController;
 

@@ -21,5 +21,13 @@
         "text": "TEST",
         "category_id": 1,
         "isPrivate": false
+    },
+    "4": {
+        "title": "adasdasd",
+        "category": "1",
+        "text": "dasdasd",
+        "image": "\/storage\/rB3TzhgfHMLFj6BSgx6tly3CQWlbImoPj39WqaWZ.jpeg",
+        "id": 4,
+        "isPrivate": false
     }
 }
