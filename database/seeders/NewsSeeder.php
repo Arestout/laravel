@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
+use App\Models\News;
 
 class NewsSeeder extends Seeder
 {
@@ -15,7 +16,7 @@ class NewsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('news')->insert($this->getData());
+        News::factory()->times(10)->create();
     }
 
     private function getData()

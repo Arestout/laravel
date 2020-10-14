@@ -44,8 +44,8 @@ class NewsController extends Controller
             $url = Storage::url($path);
         }
 
+        $this->validate($request, News::rules(), [], News::attributeNames());
 
-        // dd($news);
         $news->fill($request->all());
         $news->image = $url;
         $news->isPrivate = isset($request->isPrivate) ? 1 : 0;
@@ -67,6 +67,8 @@ class NewsController extends Controller
                 $path = Storage::putFile('public', $request->file('image'));
                 $url = Storage::url($path);
             }
+
+            $this->validate($request, News::rules(), [], News::attributeNames());
 
             $news = new News();
             $news->image = $url;
