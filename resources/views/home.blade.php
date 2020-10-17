@@ -6,6 +6,12 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
+                @dd($news)
+                @if ($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        {{ $errors->all() }}
+                    </div>
+                @endif
 
                 <div class="card-body">
                     @if (session('status'))

@@ -16,8 +16,12 @@
                         <h2>CRUD Новости</h2>
                         @forelse($news as $item)
                             <h3>{{ $item->title }}</h3>
-                            <a class="btn btn-success" href="{{ route('admin.edit', $item) }}">Edit</a>
-                            <a class="btn btn-danger" href="{{ route('admin.destroy', $item) }}">Destroy</a>
+                            <form method="post" action="{{ route('admin.news.destroy', $item) }}">
+                                <a class="btn btn-success" href="{{ route('admin.news.edit', $item) }}">Edit</a>
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" class="btn btn-danger" value="DELETE">
+                            </form>
                         @empty
                         Нет новостей
                         @endforelse

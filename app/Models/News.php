@@ -13,7 +13,7 @@ class News extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id')->first();
+        return $this->belongsTo(Category::class, 'category_id')->get();
     }
 
     public static function rules()
@@ -24,6 +24,7 @@ class News extends Model
             'text' => 'required',
             'category' => "required|exists:{$tableNameCategory},id",
             'image' => 'mimes:jpeg,png,bmp|max:1000',
+            'isPrivate' => 'boolean'
         ];
     }
 
