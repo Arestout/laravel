@@ -2,79 +2,38 @@
 
 namespace App\Models;
 
-class News
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use App\Rules\Ember;
+
+class News extends Model
 {
-    private static $news = [
-        '1' => [
-            'id' => 1,
-            'title' => 'Новость 1',
-            'text' => 'А у нас новость 1 и она очень хорошая!',
-            'slug' => '',
-            'category_id' => 1,
-            'isPrivate' => false
-        ],
-        '2' => [
-            'id' => 2,
-            'title' => 'Новость 2',
-            'text' => 'А тут плохие новости(((',
-            'slug' => '',
-            'category_id' => 2,
-            'isPrivate' => false
-        ]
-    ];
+    use HasFactory;
+    protected $fillable = ['title', 'text', 'isPrivate', 'image', 'category_id'];
 
-    public static function getNewsFromFile()
+    public function category()
     {
-        $newsJson = \File::get(storage_path() . '/news.json');
-        $news = json_decode($newsJson, true);
-
-        return $news;
+        return $this->belongsTo(Category::class, 'category_id')->first();
     }
 
-    public static function getNews()
+    public static function rules()
     {
-        return static::$news;
+        $tableNameCategory = (new Category())->getTable();
+        return [
+            'title' => ['required', 'min:10', 'max:20'],
+            'text' => 'required',
+            'category' => "required|exists:{$tableNameCategory},id",
+            'image' => 'mimes:jpeg,png,bmp|max:1000',
+        ];
     }
 
-    public static function getNewsId($id)
+    public static function attributeNames()
     {
-        // \File::put(storage_path() . '/news.json', json_encode(static::$news, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-        $news = static::getNewsFromFile();
-        if (isset($news[$id])) {
-            $news = $news[$id];
-            return $news;
-        }
-        return [];
-    }
-
-    public static function getNewsByCategorySlug($slug)
-    {
-        $id = Category::getCategoryIdBySlug($slug);
-        $newsFromFile = static::getNewsFromFile();
-        $news = [];
-
-        foreach ($newsFromFile as $item) {
-            if ($item['category_id'] == $id) {
-                $news[] = $item;
-            }
-        }
-        return $news;
-    }
-
-    public static function getNewsByCategoryId($id)
-    {
-        $newsFromFile = static::getNewsFromFile();
-        $categoryNews = [];
-
-        foreach ($newsFromFile as $news) {
-            if ($news['category_id'] == $id) {
-                array_push($categoryNews, $news);
-            }
-        }
-
-        if (count($categoryNews) > 0) {
-            return $categoryNews;
-        }
-        return [];
+        return [
+            'title' => 'Заголовок новости',
+            'text' => 'Текст новости',
+            'category' => "Категория новости",
+            'image' => "Изображение",
+        ];
     }
 }

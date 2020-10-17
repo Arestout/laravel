@@ -12,24 +12,22 @@ class NewsController extends Controller
 {
     public function index()
     {
-        $news = DB::table('news')->get();
+        // $news = News::all();
+        // $news = News::query()->where('isPrivate', false)->get();
+        $news = News::paginate(5);
+
         return view('news.index')->with('news', $news);
     }
 
-    public function showNewsById($id)
+    public function showNewsById(News $news)
     {
         // dump($id);
-        $news = DB::table('news')->find($id);
+        // $news = DB::table('news')->find();
         return view('news.one')->with('news', $news);
     }
 
     public function showCategories()
     {
-        return view('news.categories')->with('categories', Category::getCategories());
-    }
-
-    public function showCategoryById($id)
-    {
-        return view('news.categoryOne')->with('categoryNews', News::getNewsByCategoryId($id));
+        return view('news.categories')->with('categories', Category::all());
     }
 }

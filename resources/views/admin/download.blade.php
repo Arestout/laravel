@@ -20,7 +20,7 @@
                         <label for="category">Выберете категорию</label>
                         <select class="form-control" name="category" id="category">
                             @forelse($categories as $category)
-                            <option id="{{ $category['id'] }}" value="{{ $category['id']}}">{{ $category['title'] }}</option>
+                            <option id="{{ $category['id'] }}" value="{{ $category['id']}}">{{ $category['name'] }}</option>
                             @empty
                             <option value="0">Нет категорий</option>
                             @endforelse

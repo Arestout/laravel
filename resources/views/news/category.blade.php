@@ -14,7 +14,7 @@
         <div class="card">
     @if ($news)
     <div class="card-header">
-        <h1>Новости категории {{ $category }}</h1>
+        <h1>Новости категории {{ $category->title }}</h1>
     </div>
         @forelse($news as $item)
         <div class="card-body">
@@ -23,12 +23,16 @@
                 <a href="{{ route('news.one', $item['id']) }}">Подробнее..</a>
             @endif
         </div>
+
         @empty
             Нет новостей
         @endforelse
     @else
         Нет такой категории
     @endif
+    <div class="card-body">
+        {{ $news->links() }}
+    </div>
 @endsection
         </div>
     </div>

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Database\Seeders\NewsSeeder;
 
 class CreateNewsTable extends Migration
 {
@@ -21,6 +22,8 @@ class CreateNewsTable extends Migration
             $table->string('image')->nullable()->default(null);
             $table->timestamps();
         });
+
+        (new NewsSeeder())->run();
     }
 
     /**
