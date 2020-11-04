@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\NewsController as NewsAdminController;
 use App\Http\Controllers\News\NewsController;
 use App\Http\Controllers\News\CategoryController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,16 +22,17 @@ use App\Http\Controllers\News\CategoryController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::view('/about', 'about')->name('about');
 
-Route::name('admin.')
+Route::match(['get', 'post'], '/profile', [ProfileController::class, 'update'])->name('updateProfile')->middleware('auth');
+
+Route::middleware(['auth', 'is_admin'])
+    ->name('admin.')
     ->prefix('admin')
     ->group(
         function () {
-            Route::get('/', [NewsAdminController::class, 'index'])->name('index');
-            Route::match(['get', 'post'], '/publish', [NewsAdminController::class, 'publish'])->name('publish');
             Route::match(['get', 'post'], '/download', [NewsAdminController::class, 'download'])->name('download');
-            Route::get('/edit/{news}', [NewsAdminController::class, 'edit'])->name('edit');
-            Route::post('/update/{news}', [NewsAdminController::class, 'update'])->name('update');
-            Route::get('/destroy/{news}', [NewsAdminController::class, 'destroy'])->name('destroy');
+            Route::resource('/news', NewsAdminController::class)->except(['show']);
+            Route::resource('/users', UserController::class);
+            Route::post('/users/toggle-status', [UserController::class, 'toggleStatus'])->name('toggle-status');
         }
     );
 

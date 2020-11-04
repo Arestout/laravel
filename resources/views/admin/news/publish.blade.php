@@ -14,8 +14,9 @@
                 <h2>Добавить новость</h2>
             </div>
             <div class="col-md-8">
-                <form method="post" action="@if (!$news->id){{ route('admin.publish') }}@else{{ route('admin.update', $news) }}@endif" enctype="multipart/form-data">
+                <form method="post" action="@if (!$news->id){{ route('admin.news.store') }}@else{{ route('admin.news.update', $news) }}@endif" enctype="multipart/form-data">
                     @csrf
+                   @if($news->id) @method('PUT') @endif
                     <div class="form-group">
                         <label for="title">Заголовок</label>
                         @if($errors->has('title'))
